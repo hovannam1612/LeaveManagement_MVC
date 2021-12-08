@@ -1,0 +1,117 @@
+﻿@using LeaveManagement.WebApp.Models.ViewModels.LeaveRequests
+@model EmployeeLeaveRequestViewVM
+
+<partial name="_StatusMessage" />
+<div class="card mb-4">
+    <div class="card-header" style="background-color: #343a40; color: white">
+        <h4>My Leave Allocations</h4>
+    </div>
+    <div class="card-body">
+        
+        <ul class="list-group list-group-flush">
+            @foreach (var item in Model.LeaveAllocations)
+            {
+                <li class="list-group-item">
+                    <h6>@item.LeaveType.Name <span class="badge badge-secondary">Number of days - @item.NumberOfDays</span>    </h6>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<a class="btn btn-success mt-3" href="/leaverequests/create"><i class="fas fa-plus" aria-hidden="true"></i> Create Request</a>
+<hr />
+
+<div class="card mb-4">
+    <div class="card-header" style="background-color: #343a40; color: white">
+        <h4>My Leave Records</h4>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover display" id="dataTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        Leave Type
+                    </th>
+                    <th>
+                        Start Date
+                    </th>
+                    <th>
+                        End Date
+                    </th>
+                    <th>
+                        Date Requested
+                    </th>
+
+                    <th>
+                        Approval State
+                    </th>
+
+                    <th>
+                        Cancel Request
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.LeaveRequests)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateRequested, new { @value = item.DateRequested.ToString("yyyy-mm-dd") })
+                        </td>
+
+                        <td>
+                            @if (item.Cancelled)
+                            {
+                                <span class="badge badge-secondary">Cancelled</span> }
+                            else if (item.Approved == true)
+                            {
+                                <span class="badge badge-success">Approved</span> }
+                            else if (item.Approved == false)
+                            {
+                                <span class="badge badge-danger">Rejected</span> }
+                            else
+                            {
+                                <span class="badge badge-warning">Pending Approval</span>}
+                        </td>
+
+                        <td>
+
+                            @if (!item.Cancelled &&@* item.StartDate > DateTime.Now &&*@ item.Approved == null)
+{
+<a asp-action="CancelRequest" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to cancel this request?')">
+    <i class="fa fa-trash" aria-hidden="true"></i>
+</a> }
+else
+{
+<button class="btn btn-secondary" disabled>
+    <i class="fa fa-trash" aria-hidden="true"></i>
+</button>}
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]],
+                "order": [[3, "desc"]]
+            });
+        });
+    </script>
+}

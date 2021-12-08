@@ -1,0 +1,21 @@
+﻿@using LeaveManagement.WebApp.Models.ViewModels.LeaveTypes
+
+@model LeaveTypeVM
+@{
+    var day = "";
+    if (Model.DefaultDays > 1)
+        day = "days";
+    else
+        day = "day";
+}
+
+<div class="card">
+    <h3 class="card-header">Detail leave type</h3>
+    <div class="card-body">
+        <p ><b>Name of leave type: </b> @Model.Name</p>
+        <p><b>Default number of days:</b> @Model.DefaultDays @day</p>
+        <p><b>Created date:</b> @Model.CreatedOn</p>
+        <p><b>Updated date:</b> @Model.UpdatedOn</p>
+        <a href="/admin/leavetypes" class="btn btn-primary"><i class="fas fa-arrow-circle-left"></i> List of leave type</a>
+    </div>
+</div>

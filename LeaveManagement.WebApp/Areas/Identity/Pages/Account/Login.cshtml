@@ -1,0 +1,54 @@
+﻿@page
+@model LoginModel
+
+<partial name="_StatusMessage" />
+<div class="page-header mb-5" data-parallax="true" style="background-image: url('../../assets/img/login-image.jpg'); width: 100%;">
+    <div class="filter"></div>
+    <div class="container login-container" style="z-index: 10000;">
+        <form id="account" method="post">
+            <div class="row justify-content-center">
+                <div class="col-md-6 login-form-1">
+                    <h3>LOGIN</h3>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.UserNameOrEmail" class="text-white"></label>
+                        <input asp-for="Input.UserNameOrEmail" class="form-control" id="UserNameOrEmail" placeholder="Enter your email or username" onchange="getUserNameOrEmail()" />
+                        <span asp-validation-for="Input.UserNameOrEmail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label asp-for="Input.Password" class="text-white"></label>
+                        <input asp-for="Input.Password" class="form-control" placeholder="Enter your Password" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="text-align: center">
+                        <button type="submit" class="btnSubmit btn btn-primary" style="background-color: #00ff90; color: black; padding: 10px;">LOGIN</button>
+                    </div>
+                    <div class="form-group" style="margin-top: 10px">
+                        <a class="btnForgetPwd" asp-area="" asp-controller="Home" asp-action="ForgotPassword" id="forgot" onclick="changeLink()">Forget Password?</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script>
+    var UserNameOrEmail;
+    var href;
+    function getUserNameOrEmail() {
+        UserNameOrEmail = document.getElementById("UserNameOrEmail").value;
+        href = document.getElementById("forgot").href + "?email=" + UserNameOrEmail;
+    }
+
+    function changeLink() {
+
+        if (!UserNameOrEmail) {
+            return;
+        }
+        document.getElementById("forgot").href = href;
+    }
+</script>

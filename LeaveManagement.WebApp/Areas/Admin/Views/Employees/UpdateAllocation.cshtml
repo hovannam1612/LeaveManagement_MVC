@@ -1,0 +1,29 @@
+﻿@using LeaveManagement.WebApp.Models.ViewModels.LeaveAllocations
+@model UpdateLeaveAllocationVM
+
+<div class="card">
+    <div class="card-header" style="background-color: #343a40; color: white">
+        <h4>Edit leave day</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="UpdateAllocation" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="EmployeeId" />
+                    <div class="form-group">
+                        <label asp-for="NumberOfDays" class="control-label"></label>
+                        <input asp-for="NumberOfDays" class="form-control" />
+                        <span asp-validation-for="NumberOfDays" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <a class="btn btn-secondary" asp-action="Detail" asp-route-id="@Model.EmployeeId">Back to Details</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,54 @@
+﻿@using LeaveManagement.WebApp.Models.ViewModels.LeaveAllocations
+@model LeaveAllocationVM
+
+@{
+    int index = 1;
+}
+
+<partial name="_StatusMessage" />
+
+<div class="card">
+    <div class="card-header">
+        <h3>
+            List of Leave Allocations
+        </h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="dataTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>No</th>
+                    <th>Leave Type</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.LeaveTypes)
+                {
+                    <tr>
+                        <td>@index</td>
+                        @{
+                            index++;
+                        }
+                        <th>@item.Name</th>
+                        <td>
+                            <form method="get">
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-sm btn-primary ml-1" asp-action="SetLeaveAllocations" asp-route-id="@item.Id"><i class="fas fa-plus"></i> Set Allocation to employees</button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+}

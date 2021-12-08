@@ -1,0 +1,59 @@
+﻿@using LeaveManagement.WebApp.Models.ViewModels.Employees
+@model IEnumerable<EmployeeVM>
+
+@{
+    int index = 1;
+}
+
+<div class="card">
+    <div class="card-header" style="background-color: #343a40; color: white">
+        <h3>
+            List of Employees
+        </h3>
+    </div>
+    <partial name="_StatusMessage" />
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="dataTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>No</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@index</td>
+                        @{
+                            index++;
+                        }
+                        <td>@item.Firstname</td>
+                        <td>@item.Lastname</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Email</td>
+                        <td>
+                            <form method="get">
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-sm btn-primary ml-1" asp-action="Detail" asp-route-id="@item.Id"><i class="fas fa-search"></i> Detail</button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+}

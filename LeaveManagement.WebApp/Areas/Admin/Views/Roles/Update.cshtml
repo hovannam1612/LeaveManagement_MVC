@@ -1,0 +1,30 @@
+﻿@model LeaveManagement.WebApp.Models.ViewModels.Roles.RoleVM
+@{
+    ViewData["Title"] = "Update role";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h2>@ViewData["Title"]</h2>
+        <partial name="_StatusMessage" />
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-edit"></i> Update</button>
+                        <a class="btn btn-primary" asp-action="Index" asp-controller="Roles"><i class="fas fa-users"></i> List of roles</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

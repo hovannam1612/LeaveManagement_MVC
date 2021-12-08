@@ -1,0 +1,38 @@
+﻿@using LeaveManagement.WebApp.Models.ViewModels.LeaveTypes
+
+@model UpdateLeaveTypeVM
+
+<div class="card">
+    <div class="card-header">
+        <h3>
+            Update Leave Type
+        </h3>
+    </div>
+    <div class="card-body">
+        <form asp-area="Admin" asp-controller="LeaveTypes" asp-action="Update" method="POST">
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @TempData["Message"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+            <div asp-validation-summary="ModelOnly"></div>
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input type="text" class="form-control" asp-for="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="DefaultDays" class="form-label"></label>
+                <input type="number" class="form-control" asp-for="DefaultDays">
+                <span asp-validation-for="DefaultDays" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-edit text-white"></i> Update</button>
+            <a asp-action="Index" asp-controller="LeaveTypes" class="btn btn-success"><i class="fas fa-arrow-circle-left"></i> Back to list</a>
+        </form>
+    </div>
+</div>
